@@ -1,0 +1,122 @@
+<!--
+  depth_comparison.launch
+  =======================
+  Single-drone Gazebo experiment for comparing depth estimation methods.
+  Runs: Gazebo + fake_drone + exploration pipeline + metrics collector.
+
+  Usage:
+    roslaunch uav_exploration_ros depth_comparison.launch depth_method:=resunet
+    roslaunch uav_exploration_ros depth_comparison.launch depth_method:=sgbm
+    roslaunch uav_exploration_ros depth_comparison.launch depth_method:=gt
+-->
+<launch>
+  <arg name="depth_method" default="resunet"/>
+  <arg name="gui"          default="true"/>
+  <arg name="rviz"         default="true"/>
+  <arg name="config"       default="$(find uav_exploration_ros)/config/exploration.yaml"/>
+  <arg name="world"        default="$(find uav_exploration_ros)/worlds/exploration.world"/>
+
+  <!-- ============================================================ -->
+  <!--  Gazebo                                                       -->
+  <!-- ============================================================ -->
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(find uav_exploration_ros)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"  value="$(arg world)"/>
+    <arg name="gui"         value="$(arg gui)"/>
+    <arg name="paused"      value="false"/>
+    <arg name="verbose"     value="false"/>
+  </include>
+
+  <!-- ============================================================ -->
+  <!--  Single drone: spawn + fake_drone + exploration + metrics     -->
+  <!-- ============================================================ -->
+  <group ns="uav0">
+
+    <!-- Spawn Gazebo model -->
+    <node name="spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_exploration_ros)/models/stereo_drone/model.sdf
+                -model uav0
+                -x 5.0 -y 5.0 -z 2.0 -Y 0.0"/>
+
+    <!-- Fake drone controller -->
+    <node name="fake_drone" pkg="uav_exploration_ros" type="fake_drone_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"      value="0"/>
+      <param name="model_name"    value="uav0"/>
+      <param name="flight_height" value="2.0"/>
+      <remap from="fake_drone/pos_cmd" to="planner/pos_cmd"/>
+    </node>
+
+    <!-- Swarm bridge (pose relay + waypoint recording) -->
+    <node name="swarm_bridge" pkg="uav_exploration_ros" type="swarm_bridge_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <param name="pose_input_topic" value="fake_drone/pose"/>
+    </node>
+
+    <!-- Depth estimator (switchable backend) -->
+    <node name="depth_estimator" pkg="uav_exploration_ros" type="depth_estimator_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"     value="0"/>
+      <param name="depth_method" value="$(arg depth_method)"/>
+      <!-- stereo image input (resunet / sgbm) -->
+      <remap from="depth_estimator/left/image_raw"  to="stereo/left/image_raw"/>
+      <remap from="depth_estimator/right/image_raw" to="stereo/right/image_raw"/>
+      <!-- ground-truth depth input (gt mode) -->
+      <remap from="depth_estimator/gt_depth" to="depth_camera/depth/image_raw"/>
+    </node>
+
+    <!-- Grid map -->
+    <node name="grid_map" pkg="uav_exploration_ros" type="grid_map_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="grid_map/depth" to="depth_estimator/depth"/>
+      <remap from="grid_map/pose"  to="swarm_bridge/pose"/>
+    </node>
+
+    <!-- Frontier explorer -->
+    <node name="frontier_explorer" pkg="uav_exploration_ros" type="frontier_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="frontier_explorer/global_grid" to="grid_map/global_grid"/>
+      <remap from="frontier_explorer/pose"        to="swarm_bridge/pose"/>
+    </node>
+
+    <!-- Planner -->
+    <node name="planner" pkg="uav_exploration_ros" type="planner_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="planner/exploration_goal" to="frontier_explorer/exploration_goal"/>
+      <remap from="planner/global_grid"      to="grid_map/global_grid"/>
+      <remap from="planner/pose"             to="swarm_bridge/pose"/>
+    </node>
+
+    <!-- Metrics collector -->
+    <node name="metrics" pkg="uav_exploration_ros" type="metrics_node.py"
+          output="screen">
+      <param name="drone_id"     value="0"/>
+      <param name="depth_method" value="$(arg depth_method)"/>
+      <!-- wire inputs -->
+      <remap from="metrics/depth_estimated" to="depth_estimator/depth"/>
+      <remap from="metrics/depth_gt"        to="depth_camera/depth/image_raw"/>
+      <remap from="metrics/frontiers"       to="frontier_explorer/frontiers"/>
+      <remap from="metrics/pose"            to="swarm_bridge/pose"/>
+    </node>
+
+  </group>
+
+  <!-- ============================================================ -->
+  <!--  RViz                                                         -->
+  <!-- ============================================================ -->
+  <include file="$(find uav_exploration_ros)/launch/rviz.launch"
+           if="$(arg rviz)"/>
+
+</launch>

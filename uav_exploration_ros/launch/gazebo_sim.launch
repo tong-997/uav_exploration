@@ -1,0 +1,137 @@
+<!--
+  gazebo_sim.launch
+  =================
+  Full Gazebo simulation for multi-UAV cooperative exploration.
+  Spawns N drones with stereo cameras, fake position controllers,
+  and the full exploration pipeline.
+
+  Usage:
+    roslaunch uav_exploration_ros gazebo_sim.launch
+    roslaunch uav_exploration_ros gazebo_sim.launch n_drones:=5 gui:=true
+    roslaunch uav_exploration_ros gazebo_sim.launch rviz:=true
+-->
+<launch>
+  <arg name="n_drones"  default="3"/>
+  <arg name="gui"       default="true"/>
+  <arg name="rviz"      default="true"/>
+  <arg name="config"    default="$(find uav_exploration_ros)/config/exploration.yaml"/>
+  <arg name="world"     default="$(find uav_exploration_ros)/worlds/exploration.world"/>
+
+  <!-- ============================================================ -->
+  <!--  Gazebo                                                       -->
+  <!-- ============================================================ -->
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(find uav_exploration_ros)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"  value="$(arg world)"/>
+    <arg name="gui"         value="$(arg gui)"/>
+    <arg name="paused"      value="false"/>
+    <arg name="verbose"     value="false"/>
+  </include>
+
+  <!-- ============================================================ -->
+  <!--  Per-drone: spawn model + fake_drone + exploration pipeline   -->
+  <!-- ============================================================ -->
+
+  <!-- ===== UAV 0 ===== -->
+  <group ns="uav0">
+    <node name="spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_exploration_ros)/models/stereo_drone/model.sdf
+                -model uav0
+                -x 5.0 -y 5.0 -z 2.0 -Y 0.0"/>
+
+    <node name="fake_drone" pkg="uav_exploration_ros" type="fake_drone_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"    value="0"/>
+      <param name="model_name"  value="uav0"/>
+      <param name="flight_height" value="2.0"/>
+      <remap from="fake_drone/pos_cmd" to="planner/pos_cmd"/>
+    </node>
+  </group>
+
+  <!-- ===== UAV 1 ===== -->
+  <group ns="uav1" if="$(eval arg('n_drones') >= 2)">
+    <node name="spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_exploration_ros)/models/stereo_drone/model.sdf
+                -model uav1
+                -x 5.0 -y 50.0 -z 2.0 -Y 0.0"/>
+
+    <node name="fake_drone" pkg="uav_exploration_ros" type="fake_drone_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"    value="1"/>
+      <param name="model_name"  value="uav1"/>
+      <param name="flight_height" value="2.0"/>
+      <remap from="fake_drone/pos_cmd" to="planner/pos_cmd"/>
+    </node>
+  </group>
+
+  <!-- ===== UAV 2 ===== -->
+  <group ns="uav2" if="$(eval arg('n_drones') >= 3)">
+    <node name="spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_exploration_ros)/models/stereo_drone/model.sdf
+                -model uav2
+                -x 5.0 -y 95.0 -z 2.0 -Y 0.0"/>
+
+    <node name="fake_drone" pkg="uav_exploration_ros" type="fake_drone_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"    value="2"/>
+      <param name="model_name"  value="uav2"/>
+      <param name="flight_height" value="2.0"/>
+      <remap from="fake_drone/pos_cmd" to="planner/pos_cmd"/>
+    </node>
+  </group>
+
+  <!-- ===== UAV 3 ===== -->
+  <group ns="uav3" if="$(eval arg('n_drones') >= 4)">
+    <node name="spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_exploration_ros)/models/stereo_drone/model.sdf
+                -model uav3
+                -x 5.0 -y 25.0 -z 2.0 -Y 0.0"/>
+
+    <node name="fake_drone" pkg="uav_exploration_ros" type="fake_drone_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"    value="3"/>
+      <param name="model_name"  value="uav3"/>
+      <param name="flight_height" value="2.0"/>
+      <remap from="fake_drone/pos_cmd" to="planner/pos_cmd"/>
+    </node>
+  </group>
+
+  <!-- ===== UAV 4 ===== -->
+  <group ns="uav4" if="$(eval arg('n_drones') >= 5)">
+    <node name="spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_exploration_ros)/models/stereo_drone/model.sdf
+                -model uav4
+                -x 5.0 -y 75.0 -z 2.0 -Y 0.0"/>
+
+    <node name="fake_drone" pkg="uav_exploration_ros" type="fake_drone_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id"    value="4"/>
+      <param name="model_name"  value="uav4"/>
+      <param name="flight_height" value="2.0"/>
+      <remap from="fake_drone/pos_cmd" to="planner/pos_cmd"/>
+    </node>
+  </group>
+
+  <!-- ============================================================ -->
+  <!--  Exploration pipeline (all drones)                            -->
+  <!--  Rewire swarm_bridge to read fake_drone/pose instead of MAVROS -->
+  <!-- ============================================================ -->
+  <include file="$(find uav_exploration_ros)/launch/sim_exploration.launch">
+    <arg name="n_drones" value="$(arg n_drones)"/>
+    <arg name="config"   value="$(arg config)"/>
+  </include>
+
+  <!-- ============================================================ -->
+  <!--  RViz                                                         -->
+  <!-- ============================================================ -->
+  <include file="$(find uav_exploration_ros)/launch/rviz.launch"
+           if="$(arg rviz)"/>
+
+</launch>

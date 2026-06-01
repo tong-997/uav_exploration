@@ -1,0 +1,187 @@
+<?xml version="1.0" ?>
+<!--
+  stereo_drone — kinematic quadrotor with stereo cameras.
+  Baseline: 0.09 m, fx≈368.92 px at 768x768 image.
+  For simulation we use 384x384 to keep GPU load reasonable;
+  depth_estimator_node resizes to 768x768 for ONNX inference.
+-->
+<sdf version="1.6">
+  <model name="stereo_drone">
+    <static>false</static>
+
+    <!-- ===== Body ===== -->
+    <link name="base_link">
+      <inertial>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>0.02</ixx><iyy>0.02</iyy><izz>0.04</izz>
+        </inertia>
+      </inertial>
+      <collision name="body_col">
+        <geometry><box><size>0.4 0.4 0.15</size></box></geometry>
+      </collision>
+      <visual name="body_vis">
+        <geometry><box><size>0.4 0.4 0.15</size></box></geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+        </material>
+      </visual>
+      <!-- 4 arms -->
+      <visual name="arm_fr">
+        <pose>0.15 -0.15 0 0 0 0.785</pose>
+        <geometry><box><size>0.3 0.02 0.02</size></box></geometry>
+        <material><ambient>0.8 0.2 0.1 1</ambient></material>
+      </visual>
+      <visual name="arm_fl">
+        <pose>0.15 0.15 0 0 0 -0.785</pose>
+        <geometry><box><size>0.3 0.02 0.02</size></box></geometry>
+        <material><ambient>0.8 0.2 0.1 1</ambient></material>
+      </visual>
+      <visual name="arm_br">
+        <pose>-0.15 -0.15 0 0 0 -0.785</pose>
+        <geometry><box><size>0.3 0.02 0.02</size></box></geometry>
+        <material><ambient>0.3 0.3 0.3 1</ambient></material>
+      </visual>
+      <visual name="arm_bl">
+        <pose>-0.15 0.15 0 0 0 0.785</pose>
+        <geometry><box><size>0.3 0.02 0.02</size></box></geometry>
+        <material><ambient>0.3 0.3 0.3 1</ambient></material>
+      </visual>
+    </link>
+
+    <!-- ===== Left Camera ===== -->
+    <link name="left_camera_link">
+      <pose>0.1 0.045 -0.03 0 0 0</pose>
+      <inertial>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>1e-6</ixx><iyy>1e-6</iyy><izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <visual name="cam_vis">
+        <geometry><box><size>0.02 0.02 0.02</size></box></geometry>
+        <material><ambient>0.1 0.1 0.8 1</ambient></material>
+      </visual>
+      <sensor name="left_camera" type="camera">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <camera>
+          <horizontal_fov>1.5708</horizontal_fov>
+          <image>
+            <width>384</width>
+            <height>384</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip><near>0.1</near><far>50</far></clip>
+        </camera>
+        <plugin name="left_camera_plugin" filename="libgazebo_ros_camera.so">
+          <cameraName>stereo/left</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>left_camera_link</frameName>
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <Cx>192.0</Cx>
+          <Cy>192.0</Cy>
+          <focalLength>368.92</focalLength>
+        </plugin>
+      </sensor>
+    </link>
+    <joint name="left_camera_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>left_camera_link</child>
+    </joint>
+
+    <!-- ===== Right Camera (baseline 0.09 m to the right) ===== -->
+    <link name="right_camera_link">
+      <pose>0.1 -0.045 -0.03 0 0 0</pose>
+      <inertial>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>1e-6</ixx><iyy>1e-6</iyy><izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <visual name="cam_vis">
+        <geometry><box><size>0.02 0.02 0.02</size></box></geometry>
+        <material><ambient>0.8 0.1 0.1 1</ambient></material>
+      </visual>
+      <sensor name="right_camera" type="camera">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <camera>
+          <horizontal_fov>1.5708</horizontal_fov>
+          <image>
+            <width>384</width>
+            <height>384</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip><near>0.1</near><far>50</far></clip>
+        </camera>
+        <plugin name="right_camera_plugin" filename="libgazebo_ros_camera.so">
+          <cameraName>stereo/right</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>right_camera_link</frameName>
+          <hackBaseline>0.09</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <Cx>192.0</Cx>
+          <Cy>192.0</Cy>
+          <focalLength>368.92</focalLength>
+        </plugin>
+      </sensor>
+    </link>
+    <joint name="right_camera_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>right_camera_link</child>
+    </joint>
+
+    <!-- ===== Ground-Truth Depth Camera (for comparison experiments) ===== -->
+    <link name="depth_camera_link">
+      <pose>0.1 0.045 -0.03 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-7</ixx><iyy>1e-7</iyy><izz>1e-7</izz>
+        </inertia>
+      </inertial>
+      <sensor name="depth_camera" type="depth">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <camera>
+          <horizontal_fov>1.5708</horizontal_fov>
+          <image>
+            <width>384</width>
+            <height>384</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip><near>0.1</near><far>50</far></clip>
+        </camera>
+        <plugin name="depth_camera_plugin" filename="libgazebo_ros_depth_camera.so">
+          <cameraName>depth_camera</cameraName>
+          <imageTopicName>color/image_raw</imageTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>depth/camera_info</cameraInfoTopicName>
+          <frameName>depth_camera_link</frameName>
+          <pointCloudCutoff>0.1</pointCloudCutoff>
+          <pointCloudCutoffMax>50.0</pointCloudCutoffMax>
+          <Cx>192.0</Cx>
+          <Cy>192.0</Cy>
+          <focalLength>368.92</focalLength>
+        </plugin>
+      </sensor>
+    </link>
+    <joint name="depth_camera_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>depth_camera_link</child>
+    </joint>
+
+  </model>
+</sdf>

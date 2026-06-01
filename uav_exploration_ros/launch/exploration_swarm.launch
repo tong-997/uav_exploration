@@ -1,0 +1,43 @@
+<!-- exploration_swarm.launch
+     Launch N-drone independent exploration.
+     Each drone explores its own area independently.
+
+     Usage:
+       roslaunch uav_exploration_ros exploration_swarm.launch
+       roslaunch uav_exploration_ros exploration_swarm.launch n_drones:=5
+-->
+<launch>
+  <arg name="n_drones" default="3"/>
+  <arg name="config"   default="$(find uav_exploration_ros)/config/exploration.yaml"/>
+
+  <!-- ===== UAV 0 ===== -->
+  <include file="$(find uav_exploration_ros)/launch/single_drone.launch">
+    <arg name="drone_id" value="0"/>
+    <arg name="config"   value="$(arg config)"/>
+  </include>
+
+  <!-- ===== UAV 1 ===== -->
+  <include file="$(find uav_exploration_ros)/launch/single_drone.launch" if="$(eval arg('n_drones') >= 2)">
+    <arg name="drone_id" value="1"/>
+    <arg name="config"   value="$(arg config)"/>
+  </include>
+
+  <!-- ===== UAV 2 ===== -->
+  <include file="$(find uav_exploration_ros)/launch/single_drone.launch" if="$(eval arg('n_drones') >= 3)">
+    <arg name="drone_id" value="2"/>
+    <arg name="config"   value="$(arg config)"/>
+  </include>
+
+  <!-- ===== UAV 3 ===== -->
+  <include file="$(find uav_exploration_ros)/launch/single_drone.launch" if="$(eval arg('n_drones') >= 4)">
+    <arg name="drone_id" value="3"/>
+    <arg name="config"   value="$(arg config)"/>
+  </include>
+
+  <!-- ===== UAV 4 ===== -->
+  <include file="$(find uav_exploration_ros)/launch/single_drone.launch" if="$(eval arg('n_drones') >= 5)">
+    <arg name="drone_id" value="4"/>
+    <arg name="config"   value="$(arg config)"/>
+  </include>
+
+</launch>

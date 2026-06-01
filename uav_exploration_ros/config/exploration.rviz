@@ -1,0 +1,60 @@
+Panels:
+  - Class: rviz/Displays
+    Name: Displays
+Visualization Manager:
+  Displays:
+    - Class: rviz/Grid
+      Name: Grid
+      Plane Cell Count: 200
+      Cell Size: 0.5
+    # --- UAV 0 Camera ---
+    - Class: rviz/Image
+      Name: UAV0 Left Camera
+      Topic: /uav0/stereo/left/image_raw
+      Transport Hint: raw
+    - Class: rviz/Image
+      Name: UAV0 Depth
+      Topic: /uav0/depth_estimator/depth
+      Transport Hint: raw
+    # --- UAV 0 ---
+    - Class: rviz/Map
+      Name: UAV0 Grid
+      Topic: /uav0/grid_map/global_grid
+      Color Scheme: costmap
+    - Class: rviz/Path
+      Name: UAV0 Path
+      Topic: /uav0/planner/vis_path
+      Color: 41; 182; 246
+      Line Width: 0.05
+    - Class: rviz/Pose
+      Name: UAV0 Goal
+      Topic: /uav0/frontier_explorer/exploration_goal
+      Color: 41; 182; 246
+      Shape: Arrow
+    # --- UAV 1 ---
+    - Class: rviz/Path
+      Name: UAV1 Path
+      Topic: /uav1/planner/vis_path
+      Color: 102; 187; 106
+      Line Width: 0.05
+    - Class: rviz/Pose
+      Name: UAV1 Goal
+      Topic: /uav1/frontier_explorer/exploration_goal
+      Color: 102; 187; 106
+      Shape: Arrow
+    # --- UAV 2 ---
+    - Class: rviz/Path
+      Name: UAV2 Path
+      Topic: /uav2/planner/vis_path
+      Color: 255; 167; 38
+      Line Width: 0.05
+    - Class: rviz/Pose
+      Name: UAV2 Goal
+      Topic: /uav2/frontier_explorer/exploration_goal
+      Color: 255; 167; 38
+      Shape: Arrow
+  Global Options:
+    Fixed Frame: world
+  Window Geometry:
+    Width: 1200
+    Height: 800

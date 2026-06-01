@@ -1,0 +1,6 @@
+<!-- rviz.launch — visualization for exploration swarm -->
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find uav_exploration_ros)/config/exploration.rviz"
+        output="screen"/>
+</launch>

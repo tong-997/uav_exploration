@@ -1,0 +1,50 @@
+# ============================================================
+#  uav_exploration_ros  —  参数配置
+#  每架无人机独立探索, 以 /uavN/ 命名空间启动
+# ============================================================
+
+# ---- 世界 / 栅格 ----
+world_size: 100.0        # m
+grid_resolution: 0.5     # m/cell
+
+# ---- 无人机 ----
+n_drones: 3
+max_speed: 3.0           # m/s
+
+# ---- 深度估计方法 ----
+depth_method: "resunet"  # "resunet" | "sgbm" | "gt"
+
+# ---- 深度感知 (ONNX / 通用) ----
+onnx_model_path: "models/ResUNet_768x768_simp_nohaze.onnx"
+onnx_device: "cpu"       # "cpu" or "cuda"
+baseline: 0.09           # 双目基线 m
+fx: 368.92               # 焦距 px
+depth_max: 15.0          # 最大有效深度 m
+depth_min: 0.3           # 最小有效深度 m
+input_h: 768
+input_w: 768
+
+# ---- SGBM 参数 ----
+sgbm_num_disparities: 128
+sgbm_block_size: 9
+
+# ---- 占据栅格 ----
+sensor_fov_deg: 90.0     # 前视视场角 (度)
+sensor_range: 15.0       # 最大感知距离 m
+
+# ---- 前沿探索 ----
+frontier_min_size: 3
+replan_interval: 2.0     # 重规划周期 s
+utility_weight_dist: 1.0
+utility_weight_size: 0.5
+exploration_done_ratio: 0.90
+
+# ---- A* 路径规划 ----
+safety_margin: 2         # 障碍膨胀格数
+path_simplify_step: 3
+
+# ---- 频率 ----
+depth_rate: 10.0         # Hz
+grid_rate: 5.0           # Hz
+frontier_rate: 2.0       # Hz
+planner_rate: 5.0        # Hz

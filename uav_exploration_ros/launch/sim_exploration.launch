@@ -1,0 +1,144 @@
+<!--
+  sim_exploration.launch
+  ======================
+  Exploration pipeline for Gazebo simulation.
+  Each drone explores independently (no map fusion, no deconfliction).
+  Rewires pose input from fake_drone instead of MAVROS.
+-->
+<launch>
+  <arg name="n_drones" default="3"/>
+  <arg name="config"   default="$(find uav_exploration_ros)/config/exploration.yaml"/>
+
+  <!-- ===== UAV 0 ===== -->
+  <group ns="uav0">
+    <node name="swarm_bridge" pkg="uav_exploration_ros" type="swarm_bridge_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <param name="pose_input_topic" value="fake_drone/pose"/>
+    </node>
+
+    <node name="depth_estimator" pkg="uav_exploration_ros" type="depth_estimator_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="depth_estimator/left/image_raw"  to="stereo/left/image_raw"/>
+      <remap from="depth_estimator/right/image_raw" to="stereo/right/image_raw"/>
+      <remap from="depth_estimator/gt_depth"        to="depth_camera/depth/image_raw"/>
+    </node>
+
+    <node name="grid_map" pkg="uav_exploration_ros" type="grid_map_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="grid_map/depth" to="depth_estimator/depth"/>
+      <remap from="grid_map/pose"  to="swarm_bridge/pose"/>
+    </node>
+
+    <node name="frontier_explorer" pkg="uav_exploration_ros" type="frontier_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="frontier_explorer/global_grid" to="grid_map/global_grid"/>
+      <remap from="frontier_explorer/pose"        to="swarm_bridge/pose"/>
+    </node>
+
+    <node name="planner" pkg="uav_exploration_ros" type="planner_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="0"/>
+      <remap from="planner/exploration_goal" to="frontier_explorer/exploration_goal"/>
+      <remap from="planner/global_grid"      to="grid_map/global_grid"/>
+      <remap from="planner/pose"             to="swarm_bridge/pose"/>
+    </node>
+  </group>
+
+  <!-- ===== UAV 1 ===== -->
+  <group ns="uav1" if="$(eval arg('n_drones') >= 2)">
+    <node name="swarm_bridge" pkg="uav_exploration_ros" type="swarm_bridge_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="1"/>
+      <param name="pose_input_topic" value="fake_drone/pose"/>
+    </node>
+
+    <node name="depth_estimator" pkg="uav_exploration_ros" type="depth_estimator_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="1"/>
+      <remap from="depth_estimator/left/image_raw"  to="stereo/left/image_raw"/>
+      <remap from="depth_estimator/right/image_raw" to="stereo/right/image_raw"/>
+      <remap from="depth_estimator/gt_depth"        to="depth_camera/depth/image_raw"/>
+    </node>
+
+    <node name="grid_map" pkg="uav_exploration_ros" type="grid_map_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="1"/>
+      <remap from="grid_map/depth" to="depth_estimator/depth"/>
+      <remap from="grid_map/pose"  to="swarm_bridge/pose"/>
+    </node>
+
+    <node name="frontier_explorer" pkg="uav_exploration_ros" type="frontier_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="1"/>
+      <remap from="frontier_explorer/global_grid" to="grid_map/global_grid"/>
+      <remap from="frontier_explorer/pose"        to="swarm_bridge/pose"/>
+    </node>
+
+    <node name="planner" pkg="uav_exploration_ros" type="planner_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="1"/>
+      <remap from="planner/exploration_goal" to="frontier_explorer/exploration_goal"/>
+      <remap from="planner/global_grid"      to="grid_map/global_grid"/>
+      <remap from="planner/pose"             to="swarm_bridge/pose"/>
+    </node>
+  </group>
+
+  <!-- ===== UAV 2 ===== -->
+  <group ns="uav2" if="$(eval arg('n_drones') >= 3)">
+    <node name="swarm_bridge" pkg="uav_exploration_ros" type="swarm_bridge_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="2"/>
+      <param name="pose_input_topic" value="fake_drone/pose"/>
+    </node>
+
+    <node name="depth_estimator" pkg="uav_exploration_ros" type="depth_estimator_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="2"/>
+      <remap from="depth_estimator/left/image_raw"  to="stereo/left/image_raw"/>
+      <remap from="depth_estimator/right/image_raw" to="stereo/right/image_raw"/>
+      <remap from="depth_estimator/gt_depth"        to="depth_camera/depth/image_raw"/>
+    </node>
+
+    <node name="grid_map" pkg="uav_exploration_ros" type="grid_map_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="2"/>
+      <remap from="grid_map/depth" to="depth_estimator/depth"/>
+      <remap from="grid_map/pose"  to="swarm_bridge/pose"/>
+    </node>
+
+    <node name="frontier_explorer" pkg="uav_exploration_ros" type="frontier_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="2"/>
+      <remap from="frontier_explorer/global_grid" to="grid_map/global_grid"/>
+      <remap from="frontier_explorer/pose"        to="swarm_bridge/pose"/>
+    </node>
+
+    <node name="planner" pkg="uav_exploration_ros" type="planner_node.py"
+          output="screen">
+      <rosparam file="$(arg config)" command="load"/>
+      <param name="drone_id" value="2"/>
+      <remap from="planner/exploration_goal" to="frontier_explorer/exploration_goal"/>
+      <remap from="planner/global_grid"      to="grid_map/global_grid"/>
+      <remap from="planner/pose"             to="swarm_bridge/pose"/>
+    </node>
+  </group>
+
+</launch>
