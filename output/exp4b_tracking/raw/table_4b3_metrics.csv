@@ -1,0 +1,4 @@
+Motion,Formation Time,Phase Uniformity,Min Inter(m),Track RMSE(m),Encircle Success
+linear,22,2.545,11.7,0.127,Yes
+random_turn,23,1.713,11.1,0.503,Yes
+static,19,0.004,13.6,0.070,Yes

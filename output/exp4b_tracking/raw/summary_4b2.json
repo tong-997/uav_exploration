@@ -1,0 +1,26 @@
+{
+  "single_best": {
+    "pre_fusion_rmse": 0.14553749631544222,
+    "post_fusion_rmse": 0.13405942956427777,
+    "cov_trace": 0.4990626653843515,
+    "max_eigenvalue": 0.24953133269217576
+  },
+  "naive_average": {
+    "pre_fusion_rmse": 0.14553749631544222,
+    "post_fusion_rmse": 0.1320545957545077,
+    "cov_trace": 0.19305332417540494,
+    "max_eigenvalue": 0.09652666208770247
+  },
+  "info_filter": {
+    "pre_fusion_rmse": 0.14553749631544222,
+    "post_fusion_rmse": 0.13068233709859958,
+    "cov_trace": 0.18750139358311158,
+    "max_eigenvalue": 0.09375069679155579
+  },
+  "covariance_intersection": {
+    "pre_fusion_rmse": 0.14553749631544222,
+    "post_fusion_rmse": 0.13423983436281078,
+    "cov_trace": 0.4931424239817594,
+    "max_eigenvalue": 0.2465712119908797
+  }
+}

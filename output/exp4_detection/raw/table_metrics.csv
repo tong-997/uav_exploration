@@ -1,0 +1,17 @@
+Occlusion,Model,Detected,First Step,Confirm Step,Avg Conf,Loc Error(m),Response Time
+none,YOLOv5-FFM,Yes,223,225,0.531,0.144,223
+none,YOLOv5s,Yes,223,-1,0.552,0.247,-1
+none,Oracle,Yes,207,209,1.000,0.000,231
+none,Noisy-Oracle,Yes,207,209,0.887,0.322,591
+light,YOLOv5-FFM,Yes,226,-1,0.590,0.177,-1
+light,YOLOv5s,Yes,226,-1,0.573,0.266,-1
+light,Oracle,Yes,207,209,1.000,0.000,235
+light,Noisy-Oracle,Yes,207,209,0.887,0.322,255
+medium,YOLOv5-FFM,Yes,223,225,0.531,0.144,235
+medium,YOLOv5s,Yes,223,-1,0.552,0.247,-1
+medium,Oracle,Yes,207,209,1.000,0.000,246
+medium,Noisy-Oracle,Yes,207,209,0.887,0.322,255
+heavy,YOLOv5-FFM,Yes,243,245,0.579,0.183,555
+heavy,YOLOv5s,Yes,243,245,0.563,0.274,555
+heavy,Oracle,Yes,222,224,1.000,0.000,576
+heavy,Noisy-Oracle,Yes,222,224,0.887,0.322,576

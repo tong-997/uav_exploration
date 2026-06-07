@@ -1,0 +1,5 @@
+Depth Mode,Map IoU,Occ Prec,Occ Rec,Free Rec,Coverage(%),Plan Succ(%),Replan,Obs Safe(%),Avg Obs(m),Collisions
+GT-Depth,1.000,1.000,1.000,1.000,90.1,100.0,36,84.5,12.18,0.0
+Ray-cast,0.987,0.700,0.644,0.994,84.6,93.7,150,63.5,9.30,0.0
+Noisy-Depth,0.711,0.092,0.908,0.705,26.1,65.6,776,47.7,8.30,0.0
+ResUNet-Depth,0.712,0.075,0.442,0.725,34.3,53.0,728,28.1,4.98,0.0

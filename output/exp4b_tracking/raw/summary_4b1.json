@@ -1,0 +1,290 @@
+{
+  "static_no_occlusion_detection_only": {
+    "rmse": 0.16965318242564328,
+    "visible_rmse": 0.16965318242564328,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.9603999999999999,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_no_occlusion_standard_kf": {
+    "rmse": 0.05545820719049345,
+    "visible_rmse": 0.05545820719049345,
+    "occlusion_rmse": NaN,
+    "track_rate": 1.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_no_occlusion_cm_kf": {
+    "rmse": 0.05544222191892909,
+    "visible_rmse": 0.05544222191892909,
+    "occlusion_rmse": NaN,
+    "track_rate": 1.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_partial_occlusion_detection_only": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_partial_occlusion_standard_kf": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_partial_occlusion_cm_kf": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_intermittent_occlusion_detection_only": {
+    "rmse": 0.17086073632243853,
+    "visible_rmse": 0.17057666282566286,
+    "occlusion_rmse": 0.24914332903730538,
+    "track_rate": 0.6092,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_intermittent_occlusion_standard_kf": {
+    "rmse": 0.1046561586902307,
+    "visible_rmse": 0.06393370378416761,
+    "occlusion_rmse": 0.15010518189419375,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "static_intermittent_occlusion_cm_kf": {
+    "rmse": 0.1045424562766881,
+    "visible_rmse": 0.06391506911970618,
+    "occlusion_rmse": 0.14990997652931912,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "static_full_occlusion_interval_detection_only": {
+    "rmse": 0.1697314305938218,
+    "visible_rmse": 0.1694405236474258,
+    "occlusion_rmse": 0.24914332903730538,
+    "track_rate": 0.6088,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "static_full_occlusion_interval_standard_kf": {
+    "rmse": 0.10802913538411829,
+    "visible_rmse": 0.06442750279785699,
+    "occlusion_rmse": 0.1561271740968146,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "static_full_occlusion_interval_cm_kf": {
+    "rmse": 0.10791055570510262,
+    "visible_rmse": 0.06440921357168204,
+    "occlusion_rmse": 0.1559220868095859,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "linear_no_occlusion_detection_only": {
+    "rmse": 0.17565252016619512,
+    "visible_rmse": 0.17565252016619512,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.6403999999999999,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "linear_no_occlusion_standard_kf": {
+    "rmse": 0.21747846437695265,
+    "visible_rmse": 0.21747846437695265,
+    "occlusion_rmse": NaN,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "linear_no_occlusion_cm_kf": {
+    "rmse": 0.2175981956772574,
+    "visible_rmse": 0.2175981956772574,
+    "occlusion_rmse": NaN,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "linear_partial_occlusion_detection_only": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "linear_partial_occlusion_standard_kf": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "linear_partial_occlusion_cm_kf": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "linear_intermittent_occlusion_detection_only": {
+    "rmse": 0.18043202637864544,
+    "visible_rmse": 0.18043202637864544,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.3996,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "linear_intermittent_occlusion_standard_kf": {
+    "rmse": 0.6541788076772949,
+    "visible_rmse": 0.24646346236647707,
+    "occlusion_rmse": 1.0225739325371204,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "linear_intermittent_occlusion_cm_kf": {
+    "rmse": 0.6542887040963824,
+    "visible_rmse": 0.24658186371906915,
+    "occlusion_rmse": 1.0227093699331538,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "linear_full_occlusion_interval_detection_only": {
+    "rmse": 0.18151975040608395,
+    "visible_rmse": 0.18151975040608395,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.396,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "linear_full_occlusion_interval_standard_kf": {
+    "rmse": 0.6622105346611773,
+    "visible_rmse": 0.26294982839996833,
+    "occlusion_rmse": 1.0235435328401343,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "linear_full_occlusion_interval_cm_kf": {
+    "rmse": 0.6623184622165299,
+    "visible_rmse": 0.26308030827788365,
+    "occlusion_rmse": 1.0236627206331295,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "random_turn_no_occlusion_detection_only": {
+    "rmse": 0.1544545948675911,
+    "visible_rmse": 0.1544545948675911,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.7124,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "random_turn_no_occlusion_standard_kf": {
+    "rmse": 1.4605303105086498,
+    "visible_rmse": 1.4605303105086498,
+    "occlusion_rmse": NaN,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "random_turn_no_occlusion_cm_kf": {
+    "rmse": 1.4608150742694757,
+    "visible_rmse": 1.4608150742694757,
+    "occlusion_rmse": NaN,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "random_turn_partial_occlusion_detection_only": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "random_turn_partial_occlusion_standard_kf": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "random_turn_partial_occlusion_cm_kf": {
+    "rmse": NaN,
+    "visible_rmse": NaN,
+    "occlusion_rmse": NaN,
+    "track_rate": 0.0,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "random_turn_intermittent_occlusion_detection_only": {
+    "rmse": 0.1531898165265733,
+    "visible_rmse": 0.1545604446841102,
+    "occlusion_rmse": 0.11398629277662921,
+    "track_rate": 0.4875999999999999,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "random_turn_intermittent_occlusion_standard_kf": {
+    "rmse": 3.086629053662935,
+    "visible_rmse": 1.130720531958637,
+    "occlusion_rmse": 4.8398857907851225,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "random_turn_intermittent_occlusion_cm_kf": {
+    "rmse": 3.086958648218967,
+    "visible_rmse": 1.130783355197387,
+    "occlusion_rmse": 4.8404285186810085,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "random_turn_full_occlusion_interval_detection_only": {
+    "rmse": 0.15452595863406304,
+    "visible_rmse": 0.1558290451645878,
+    "occlusion_rmse": 0.11398629277662921,
+    "track_rate": 0.4896,
+    "reassoc_rate": 0.0,
+    "lost_count": 0.0
+  },
+  "random_turn_full_occlusion_interval_standard_kf": {
+    "rmse": 3.092341453960832,
+    "visible_rmse": 1.1908531073189184,
+    "occlusion_rmse": 4.835296898296899,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  },
+  "random_turn_full_occlusion_interval_cm_kf": {
+    "rmse": 3.092687244376706,
+    "visible_rmse": 1.1909271299258846,
+    "occlusion_rmse": 4.835858631110878,
+    "track_rate": 1.0,
+    "reassoc_rate": 1.0,
+    "lost_count": 0.0
+  }
+}

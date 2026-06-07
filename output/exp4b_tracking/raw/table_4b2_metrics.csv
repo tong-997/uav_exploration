@@ -1,0 +1,5 @@
+Fusion Method,Pre RMSE(m),Post RMSE(m),Cov Trace,Max Eigenvalue
+Single Best,0.146,0.134,0.4991,0.2495
+Naive Average,0.146,0.132,0.1931,0.0965
+Info Filter,0.146,0.131,0.1875,0.0938
+Covariance Intersection,0.146,0.134,0.4931,0.2466

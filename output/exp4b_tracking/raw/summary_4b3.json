@@ -1,0 +1,23 @@
+{
+  "static": {
+    "formation_time": 19.2,
+    "phase_uniformity": 0.0036985684652535073,
+    "min_inter_distance": 13.59261922441144,
+    "track_rmse": 0.07047564772680097,
+    "encirclement_success": true
+  },
+  "linear": {
+    "formation_time": 22.0,
+    "phase_uniformity": 2.5446895765557587,
+    "min_inter_distance": 11.694970355324557,
+    "track_rmse": 0.1270481421685978,
+    "encirclement_success": true
+  },
+  "random_turn": {
+    "formation_time": 22.8,
+    "phase_uniformity": 1.712516613327385,
+    "min_inter_distance": 11.140383860807605,
+    "track_rmse": 0.502971986950669,
+    "encirclement_success": true
+  }
+}

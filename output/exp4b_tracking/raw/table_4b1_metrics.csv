@@ -1,0 +1,37 @@
+Motion,Occlusion,Method,RMSE(m),Track Rate(%),Reassoc Rate(%)
+linear,full occlusion interval,Cm Kf,0.662,100.0,100.0
+linear,full occlusion interval,Detection Only,0.182,39.6,0.0
+linear,full occlusion interval,Standard Kf,0.662,100.0,100.0
+linear,intermittent occlusion,Cm Kf,0.654,100.0,100.0
+linear,intermittent occlusion,Detection Only,0.180,40.0,0.0
+linear,intermittent occlusion,Standard Kf,0.654,100.0,100.0
+linear,no occlusion,Cm Kf,0.218,100.0,100.0
+linear,no occlusion,Detection Only,0.176,64.0,0.0
+linear,no occlusion,Standard Kf,0.217,100.0,100.0
+linear,partial occlusion,Cm Kf,nan,0.0,0.0
+linear,partial occlusion,Detection Only,nan,0.0,0.0
+linear,partial occlusion,Standard Kf,nan,0.0,0.0
+random_turn,full occlusion interval,Cm Kf,3.093,100.0,100.0
+random_turn,full occlusion interval,Detection Only,0.155,49.0,0.0
+random_turn,full occlusion interval,Standard Kf,3.092,100.0,100.0
+random_turn,intermittent occlusion,Cm Kf,3.087,100.0,100.0
+random_turn,intermittent occlusion,Detection Only,0.153,48.8,0.0
+random_turn,intermittent occlusion,Standard Kf,3.087,100.0,100.0
+random_turn,no occlusion,Cm Kf,1.461,100.0,100.0
+random_turn,no occlusion,Detection Only,0.154,71.2,0.0
+random_turn,no occlusion,Standard Kf,1.461,100.0,100.0
+random_turn,partial occlusion,Cm Kf,nan,0.0,0.0
+random_turn,partial occlusion,Detection Only,nan,0.0,0.0
+random_turn,partial occlusion,Standard Kf,nan,0.0,0.0
+static,full occlusion interval,Cm Kf,0.108,100.0,100.0
+static,full occlusion interval,Detection Only,0.170,60.9,0.0
+static,full occlusion interval,Standard Kf,0.108,100.0,100.0
+static,intermittent occlusion,Cm Kf,0.105,100.0,100.0
+static,intermittent occlusion,Detection Only,0.171,60.9,0.0
+static,intermittent occlusion,Standard Kf,0.105,100.0,100.0
+static,no occlusion,Cm Kf,0.055,100.0,0.0
+static,no occlusion,Detection Only,0.170,96.0,0.0
+static,no occlusion,Standard Kf,0.055,100.0,0.0
+static,partial occlusion,Cm Kf,nan,0.0,0.0
+static,partial occlusion,Detection Only,nan,0.0,0.0
+static,partial occlusion,Standard Kf,nan,0.0,0.0

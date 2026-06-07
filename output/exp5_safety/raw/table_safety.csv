@@ -1,0 +1,10 @@
+Metric,Value
+Collision Count,0
+Obstacle Safe Rate (%),74.0
+Min Obstacle Dist (m),0.51
+Avg Obstacle Dist (m),10.05
+Min Inter-UAV Dist (m),19.63
+Avg Inter-UAV Dist (m),27.77
+Inter-UAV Safe Rate (%),100.0
+Replan Count,35
+Avoidance Events,0
